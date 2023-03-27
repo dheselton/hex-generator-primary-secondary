@@ -1,0 +1,221 @@
+<html>
+    <head>
+        <title>Color Picker</title>
+        <style>
+            body {
+                font-family: "Montserrat", sans-serif;
+                text-align: center;
+            }
+            h1 {
+                margin-top: 0;
+            }
+            .color-picker {
+                display: inline-block;
+                margin: 20px;
+                vertical-align: top;
+            }
+            .color-picker h2 {
+                margin-top: 0;
+            }
+            .color-picker .color-box {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                border: 1px solid #000000;
+            }
+            .color-picker .color-input {
+                display: block;
+                margin: 20px auto;
+                font-family: "Montserrat", sans-serif;
+                padding: 10px;
+                border: 1px solid #000000;
+                border-radius: 5px;
+            }
+            .color-picker button {
+                display: block;
+                margin: 20px auto;
+                font-family: "Montserrat", sans-serif;
+                padding: 10px 20px;
+                background-color: #0b3555;
+                color: #ffffff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,700&amp;display=swap"
+            rel="stylesheet" />
+    </head>
+    <body
+        cz-shortcut-listen="true"
+        data-new-gr-c-s-check-loaded="14.1101.0"
+        data-gr-ext-installed="">
+        <div class="color-picker">
+            <h2>Primary color</h2>
+            <div class="color-box" id="primary-color"></div>
+            <input
+                type="text"
+                class="color-input"
+                id="color-input1"
+                placeholder="Enter hex color code" />
+            <button onclick="changeColor(1)">Change color</button>
+        </div>
+        <div class="color-picker">
+            <h2>Secondary color</h2>
+            <div class="color-box" id="secondary-color"></div>
+            <input
+                type="text"
+                class="color-input"
+                id="color-input2"
+                placeholder="Enter hex color code" />
+            <button onclick="changeColor(2)">Change color</button>
+        </div>
+        <div class="color-picker">
+            <h2>Secondary color</h2>
+            <div class="color-box" id="secondary-color"></div>
+            <input
+                type="text"
+                class="color-input"
+                id="color-input2"
+                placeholder="Enter hex color code" />
+            <button onclick="changeColor(2)">Change color</button>
+        </div>
+        <div class="color-picker">
+            <h2>Secondary color</h2>
+            <div class="color-box" id="secondary-color-1"></div>
+            <input
+                type="text"
+                class="color-input"
+                id="color-input3"
+                placeholder="Enter hex color code" />
+            <button onclick="changeColor(3)">Change color</button>
+        </div>
+        <div class="color-picker">
+            <h2>Secondary color</h2>
+            <div class="color-box" id="secondary-color-2"></div>
+            <input
+                type="text"
+                class="color-input"
+                id="color-input4"
+                placeholder="Enter hex color code" />
+            <button onclick="changeColor(4)">Change color</button>
+        </div>
+        <div class="color-picker">
+            <h2>Secondary color</h2>
+            <div class="color-box" id="secondary-color-3"></div>
+            <input
+                type="text"
+                class="color-input"
+                id="color-input5"
+                placeholder="Enter hex color code" />
+            <button onclick="changeColor(5)">Change color</button>
+        </div>
+
+        <script>
+            function changeColor(colorPickerNum) {
+                var colorInput = document.getElementById(
+                    "color-input" + colorPickerNum
+                ).value;
+                var colorBox = document.getElementById(
+                    colorPickerNum === 1 ? "primary-color" : "secondary-color"
+                );
+                colorBox.style.backgroundColor = colorInput;
+                // Add query string to URL
+                var params = new URLSearchParams(window.location.search);
+                params.set(
+                    colorPickerNum === 1 ? "primaryColor" : "secondaryColor",
+                    colorInput
+                );
+                history.pushState(null, null, "?" + params.toString());
+            }
+
+            // Retrieve saved colors from query string in URL
+            var params = new URLSearchParams(window.location.search);
+            var savedPrimaryColor = params.get("primaryColor");
+            if (savedPrimaryColor) {
+                var primaryColorBox = document.getElementById("primary-color");
+                primaryColorBox.style.backgroundColor = savedPrimaryColor;
+                document.getElementById("color-input1").value =
+                    savedPrimaryColor;
+            }
+            var savedSecondaryColor = params.get("secondaryColor");
+            if (savedSecondaryColor) {
+                var secondaryColorBox =
+                    document.getElementById("secondary-color");
+                secondaryColorBox.style.backgroundColor = savedSecondaryColor;
+                document.getElementById("color-input2").value =
+                    savedSecondaryColor;
+            }
+
+            function changeColor(colorPickerNum) {
+                var colorInput = document.getElementById(
+                    "color-input" + colorPickerNum
+                ).value;
+                var colorBox = document.getElementById(
+                    "secondary-color" + (colorPickerNum - 2)
+                );
+                colorBox.style.backgroundColor = colorInput;
+                // Add query string to URL
+                var params = new URLSearchParams(window.location.search);
+                params.set(
+                    colorPickerNum === 2
+                        ? "secondaryColor"
+                        : "secondaryColor" + (colorPickerNum - 2),
+                    colorInput
+                );
+                history.pushState(null, null, "?" + params.toString());
+            }
+
+            // Retrieve saved colors from query string in URL
+            var params = new URLSearchParams(window.location.search);
+            var savedSecondaryColor = params.get("secondaryColor");
+            if (savedSecondaryColor) {
+                var secondaryColorBox =
+                    document.getElementById("secondary-color");
+                secondaryColorBox.style.backgroundColor = savedSecondaryColor;
+                document.getElementById("color-input2").value =
+                    savedSecondaryColor;
+            }
+            var savedSecondaryColor1 = params.get("secondaryColor1");
+            if (savedSecondaryColor1) {
+                var secondaryColorBox1 =
+                    document.getElementById("secondary-color-1");
+                secondaryColorBox1.style.backgroundColor = savedSecondaryColor1;
+                document.getElementById("color-input3").value =
+                    savedSecondaryColor1;
+            }
+            var savedSecondaryColor2 = params.get("secondaryColor2");
+            if (savedSecondaryColor2) {
+                var secondaryColorBox2 =
+                    document.getElementById("secondary-color-2");
+                secondaryColorBox2.style.backgroundColor = savedSecondaryColor2;
+                document.getElementById("color-input4").value =
+                    savedSecondaryColor2;
+            }
+            var savedSecondaryColor3 = params.get("secondaryColor3");
+            if (savedSecondaryColor3) {
+                var secondaryColorBox3 =
+                    document.getElementById("secondary-color-3");
+                secondaryColorBox3.style.backgroundColor = savedSecondaryColor3;
+                document.getElementById("color-input5").value =
+                    savedSecondaryColor3;
+            }
+        </script>
+
+        <scribe-shadow
+            id="crxjs-ext"
+            style="
+                position: fixed;
+                width: 0px;
+                height: 0px;
+                top: 0px;
+                left: 0px;
+                z-index: 2147483647;
+                overflow: visible;
+            "></scribe-shadow>
+    </body>
+    <grammarly-desktop-integration
+        data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+</html>
